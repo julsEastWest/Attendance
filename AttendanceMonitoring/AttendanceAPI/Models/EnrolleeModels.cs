@@ -11,8 +11,9 @@ public class EnrolleeModels
 
     [ForeignKey("Student_Id")]
     public StudentModels? Student{ get; set; }
-    public long Course_Id{ get; set; }
+    public long Student_Id{ get; set; }
 
     [ForeignKey("Course_Id")]
     public CourseModel? Course{ get; set; }
+    public long Course_Id{ get; set; }
 }
