@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AttendanceMonitoring.AttendanceAPI.Controllers
 {
     [ApiController]
-    [Route("/[controller]")] // have replace the [contoller] with the name of controller actual name.
+    [Route("api/[controller]")] // have replace the [contoller] with the name of controller actual name.
     public class AttendanceController : ControllerBase 
     {
         private readonly AttendanceContext _context;
@@ -14,25 +14,28 @@ namespace AttendanceMonitoring.AttendanceAPI.Controllers
         {
             _context = context;
         }
-       /* [HttpGet]
-        public List<StudentModels> GetStudents()    
+        [HttpGet] // get all student objects
+        public IEnumerable<StudentModels> GetStudents()
         {
-           var student = _context.Students.ToList();
-           return student;
-        } */
-    [HttpGet]
-    public async Task<ActionResult<StudentModels>> GetStudent(long Student_Id)
-    {
-        var student = await _context.Students.FindAsync(Student_Id);
+            var students = _context.Students.ToList();
+             //return _context.Students.ToList();
+            return students;
+        }
+
+        [HttpGet("{Student_Id}")] // get student object by Id
+        public ActionResult<StudentModels> GetStudents(long Student_Id)
+        {
+        var student = _context.Students.Find(Student_Id);
         if (student == null)
         {
             return NotFound();
         }
+
         return Ok(student);
-         
-         
-         //return _context.Students.FirstOrDefault(s => s.Student_Id == Student_Id);
     }
+        
+        
+    
         
     }
 }
